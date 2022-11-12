@@ -1,8 +1,8 @@
 
 *** Variables ***
 # Configuration
-${BROWSER} =  edge
+${BROWSER} =    edge
 ${ENVIRONMENT} =  prod
-&{BASE_URL}  https://www.facebook.com/
-${LOGIN_URL} =  https://www.facebook.com/
-${INVALID_CREDENTIALS_PATH_CSV} =  C:\\development\\robot-scripts\\data-driven-ext-csv\\Data\\Users.csv
+${BASE_URL}     https://acme-test.uipath.com/login
+${LOGIN_URL} =    https://acme-test.uipath.com/login
+${INVALID_CREDENTIALS_PATH_CSV} =    C:\\development\\robot-scripts\\facebook-login-attempt\\Data\\Users.csv

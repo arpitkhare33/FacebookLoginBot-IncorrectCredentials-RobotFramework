@@ -1,28 +1,34 @@
 *** Settings ***
-Library  Selenium2Library
+Library  SeleniumLibrary
 
 *** Variables ***
-${SIGN_IN_EMAIL} =          xpath=//input[@ng-model='credentials.email']
-${SIGN_IN_PASSWORD} =       xpath=//input[@ng-model='credentials.password']
-${LOGIN_SUBMIT_BUTTON} =    Log In
+${SIGN_IN_EMAIL} =          xpath=//*[@id="email"]
+${SIGN_IN_PASSWORD} =       xpath=//*[@id="password"]
+${REMEMBER_ME_BUTTON} =    xpath=//*[@id="remember"]
+${LOGIN_SUBMIT_BUTTON} =    Login
 
 *** Keywords ***
 Navigate To
-    ${SignInUrl} =  Catenate  SEPARATOR=/  ${BASE_URL.${ENVIRONMENT}}  ${LOGIN_URL}
-    go to  ${SignInUrl}
+    log    ${LOGIN_URL}
+#    ${SignInUrl} =    ${LOGIN_URL}
+    go to    ${LOGIN_URL}
 
 Enter Credentials
     [Arguments]  ${Credentials}
-    run keyword unless  '${Credentials[0]}' == '#BLANK'  Input Text  ${SIGN_IN_EMAIL}  ${Credentials[0]}
-    run keyword unless  '${Credentials[1]}' == '#BLANK'  Input Text  ${SIGN_IN_PASSWORD}  ${Credentials[1]}
+    log    ${SIGN_IN_EMAIL}
+    log    ${SIGN_IN_PASSWORD}
+    Input Text    ${SIGN_IN_EMAIL}    ${Credentials[0]}
+    Input Text    ${SIGN_IN_PASSWORD}    ${Credentials[1]}
 
 Click Submit
-    Click Button  ${LOGIN_SUBMIT_BUTTON}
+    click element    ${REMEMBER_ME_BUTTON}
+    click button    ${LOGIN_SUBMIT_BUTTON}
 
 Verify Error Message
     [Arguments]  ${ExpectedErrorMessage}
-    Page Should Contain  ${ExpectedErrorMessage[2]}
+#    sleep    30s
+    page should contain    ${ExpectedErrorMessage[2]}
 
 Clear Input Fields
-    Clear Element Text  ${SIGN_IN_EMAIL}
-    Clear Element Text  ${SIGN_IN_PASSWORD}
+    clear element text    ${SIGN_IN_EMAIL}
+    clear element text    ${SIGN_IN_PASSWORD}
